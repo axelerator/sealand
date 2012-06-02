@@ -1,6 +1,7 @@
 
 Sealand::Application.routes.draw do
-  post "api/materials" => 'api/materials#create'
+  post 'api/materials' => 'api/materials#create'
+  get 'api/materials'  => 'api/materials#index'
 
   resources :materials
 
