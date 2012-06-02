@@ -4,6 +4,7 @@ class WorkshopsController < ApplicationController
   # GET /workshops.json
   def index
     @workshops = Workshop.all
+    @locations = @workshops.map{|bar| [bar.lat, bar.lng]}.to_json
 
     respond_to do |format|
       format.html # index.html.erb
