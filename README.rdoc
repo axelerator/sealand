@@ -16,3 +16,8 @@
 
 == Heroku
  * http://railsapps.github.com/rails-heroku-tutorial.html
+
+== Deploy
+ * git push heroku master
+ * heroku run rake db:migrate
+
