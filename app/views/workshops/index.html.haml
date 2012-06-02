@@ -1,29 +1,43 @@
 %h1 Listing workshops
 
-%table
-  %tr
-    %th Name
-    %th Description
-    %th User
-    %th Lat
-    %th Lng
-    %th Plan
-    %th
-    %th
-    %th
+- content_for(:sidebar) do
+  %ul
+    - @workshops.each do |workshop|
+      %li=link_to workshop.name, workshop_path(workshop)
+      -#%td= link_to 'Show', workshop
+      -#%td= link_to 'Edit', edit_workshop_path(workshop)
+      -#%td= link_to 'Destroy', workshop, :confirm => 'Are you sure?', :method => :delete
 
-  - @workshops.each do |workshop|
-    %tr
-      %td= workshop.name
-      %td= workshop.description
-      %td= workshop.user_id
-      %td= workshop.lat
-      %td= workshop.lng
-      %td= workshop.plan_id
-      %td= link_to 'Show', workshop
-      %td= link_to 'Edit', edit_workshop_path(workshop)
-      %td= link_to 'Destroy', workshop, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
+#map{"style"=>"height:250px; width: 300px; border: 1px solid red"}
 = link_to 'New Workshop', new_workshop_path
+
+:javascript
+   var locations = #{@locations};
+   var map, layer;
+        function init(){
+            OpenLayers.ProxyHost="/proxy/?url=";
+            map = new OpenLayers.Map('map');
+            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+                "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+                
+            map.addLayer(layer);
+            map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+
+            var newl = new OpenLayers.Layer.Text( "text", { location:"./textfile.txt"} );
+            map.addLayer(newl);
+
+            var markers = new OpenLayers.Layer.Markers( "Markers" );
+            map.addLayer(markers);
+
+            var size = new OpenLayers.Size(21,25);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+            locations.forEach( function(x,i) {
+            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
+              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[1], x[0]) ,icon));
+            });
+
+            //markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(2.0, 5.0),icon));
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            //map.zoomToMaxExtent();
+            map.zoomIn(5);
+        }
