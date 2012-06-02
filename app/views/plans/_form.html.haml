@@ -4,7 +4,6 @@
   .form-inputs
     = f.input :name
     = f.input :description
-    = image_tag @plan.plan_image.public_url, :style => "max-width: 600px; margin: 10px 0px;"
     = f.filer_upload_field :plan_image
 
   .form-actions
