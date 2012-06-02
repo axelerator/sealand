@@ -2,6 +2,7 @@
 
 %table
   %tr
+    %th 
     %th Name
     %th Description
     %th User
@@ -11,6 +12,7 @@
 
   - @plans.each do |plan|
     %tr
+      %td= image_tag plan.plan_image.public_url, :style => "max-width: 30px;min-width: 30px; margin: 10px 0px;"
       %td= plan.name
       %td= plan.description
       %td
