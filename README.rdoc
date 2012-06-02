@@ -5,6 +5,9 @@
 == Setup
  * create a db role: sealand pw: sealand
  * create a db: sealand_dev
+ * as postgres user:
+   # createuser --no-createrole --createdb sealand
+   # createuser -O sealand_dev
  * install bundler: gem install bundler
  * call: bundle
  * call: bundle exec rails c
