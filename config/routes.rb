@@ -1,5 +1,7 @@
 
 Sealand::Application.routes.draw do
+  post "api/materials" => 'api/materials#create'
+
   resources :materials
 
   resources :workshops
