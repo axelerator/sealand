@@ -1,5 +1,9 @@
 
 Sealand::Application.routes.draw do
+  resources :materials
+
+  resources :workshops
+
   resources :plans
 
   get "sessions/new"
