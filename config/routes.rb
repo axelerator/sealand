@@ -1,5 +1,7 @@
 
 Sealand::Application.routes.draw do
+  resources :plans
+
   get "sessions/new"
 
   get "users/new"
