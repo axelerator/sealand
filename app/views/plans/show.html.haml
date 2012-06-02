@@ -9,6 +9,8 @@
   %p
     %b User:
     = @plan.user_id
+  %p
+    = image_tag @plan.plan_image.url, :style => "max-width: 600px; margin: 10px 0px;"
 
   .workshops
     %b Workshops:
