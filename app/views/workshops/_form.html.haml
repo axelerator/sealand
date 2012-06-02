@@ -4,10 +4,6 @@
   .form-inputs
     = f.input :name
     = f.input :description
-    = f.input :user_id
-    = f.input :lat
-    = f.input :lng
-    = f.input :plan_id
-
+    = f.input :plan_id, :as => :select, :collection => Plan.all
   .form-actions
     = f.button :submit

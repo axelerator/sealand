@@ -13,7 +13,9 @@
     %tr
       %td= plan.name
       %td= plan.description
-      %td= plan.user.email
+      %td
+        - if plan.user
+          = plan.user.email
       %td= link_to 'Show', plan
       %td= link_to 'Edit', edit_plan_path(plan)
       %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
