@@ -7,9 +7,10 @@
  * create a db: sealand_dev
  * as postgres user:
    # createuser --no-createrole --createdb sealand
-   # createuser -O sealand_dev
+   # createdb -O sealand sealand_dev
  * install bundler: gem install bundler
  * call: bundle
+ * call: bundle exec rake db:migrate 
  * call: bundle exec rails c
  * browse: localhost:3000/signup to register new user
 
