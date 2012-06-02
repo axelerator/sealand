@@ -8,5 +8,5 @@
  * install bundler: gem install bundler
  * call: bundle
  * call: bundle exec rails c
- * browse: localhost:3000
+ * browse: localhost:3000/signup to register new user
 
