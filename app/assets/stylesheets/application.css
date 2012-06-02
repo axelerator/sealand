@@ -11,3 +11,16 @@
  *= require_self
  *= require_tree .
  */
+ 
+footer {
+  bottom: 0px;
+  background-color: #EEE;
+  border-top: 1px solid silver;
+  position: absolute;
+  width:100%;
+}
+
+footer p {
+  padding: 15px 20px 10px 20px;
+}
+
