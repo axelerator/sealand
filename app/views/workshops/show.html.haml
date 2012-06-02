@@ -1,23 +1,23 @@
 %p#notice= notice
-
-%p
-  %b Name:
-  = @workshop.name
-%p
-  %b Description:
-  = @workshop.description
-%p
-  %b User:
-  = @workshop.user_id
-%p
-  %b Lat:
-  = @workshop.lat
-%p
-  %b Lng:
-  = @workshop.lng
-%p
-  %b Plan:
-  = link_to @workshop.plan.name, plan_path(@workshop.plan)
+- content_for(:sidebar) do
+  %p
+    %b Name:
+    = @workshop.name
+  %p
+    %b Description:
+    = @workshop.description
+  %p
+    %b User:
+    = @workshop.user_id
+  %p
+    %b Lat:
+    = @workshop.lat
+  %p
+    %b Lng:
+    = @workshop.lng
+  %p
+    %b Plan:
+    = link_to @workshop.plan.name, plan_path(@workshop.plan)
 
 #map{"style"=>"height:250px; width: 300px; border: 1px solid red"}
 

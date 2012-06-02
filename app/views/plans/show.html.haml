@@ -1,20 +1,20 @@
 %p#notice= notice
+- content_for(:sidebar) do
+  %p
+    %b Name:
+    = @plan.name
+  %p
+    %b Description:
+    = @plan.description
+  %p
+    %b User:
+    = @plan.user_id
 
-%p
-  %b Name:
-  = @plan.name
-%p
-  %b Description:
-  = @plan.description
-%p
-  %b User:
-  = @plan.user_id
-
-.workshops
-  %b Workshops:
-  %ul
-    - @plan.workshops.each do |workshop|
-      %li=link_to workshop.name, workshop_path(workshop)
+  .workshops
+    %b Workshops:
+    %ul
+      - @plan.workshops.each do |workshop|
+        %li=link_to workshop.name, workshop_path(workshop)
 
 #map{"style"=>"height:250px; width: 300px; border: 1px solid red"}
 
