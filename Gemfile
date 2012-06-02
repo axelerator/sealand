@@ -2,18 +2,7 @@
 
 source 'https://rubygems.org'
 
-# add gems you want you're app to be set up with here:
-
-# ====================================================
-# the following gems are expected by the setup script
-# remoiving any may break setup
-
-gem 'simple_form'
-gem 'sorcery'
-gem 'twitter-bootstrap-rails'
-
-gem 'haml'
-gem 'haml-rails'
+ruby '1.9.3' 
 
 # add gems you want you're app to be set up with here:
 
@@ -30,11 +19,16 @@ gem 'haml-rails'
 
 gem 'rails', '3.2.5'
 
+gem 'heroku'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
 
+group :production do
+  gem 'thin'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
