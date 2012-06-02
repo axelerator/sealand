@@ -1,11 +1,64 @@
-= simple_form_for(@workshop) do |f|
-  = f.error_notification
+- content_for(:sidebar) do
+  = simple_form_for(@workshop) do |f|
+    = f.error_notification
 
-  .form-inputs
-    = f.input :name
-    = f.input :description
-    = f.input :plan_id, :as => :select, :collection => Plan.all
-    = f.input :lat
-    = f.input :lng
-  .form-actions
-    = f.button :submit
+    .form-inputs
+      = f.input :name
+      = f.input :description
+      = f.input :plan_id, :as => :select, :collection => Plan.all
+      = f.input :lat
+      = f.input :lng
+    .form-actions
+      = f.button :submit
+    
+#map{"style"=>"height: 600px; width: 100%;"}
+
+:javascript
+    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+      defaultHandlerOptions: {
+          'single': true,
+          'double': false,
+          'pixelTolerance': 0,
+          'stopSingle': false,
+          'stopDouble': false
+      },
+
+      initialize: function(options) {
+          this.handlerOptions = OpenLayers.Util.extend(
+              {}, this.defaultHandlerOptions
+          );
+          OpenLayers.Control.prototype.initialize.apply(
+              this, arguments
+          ); 
+          this.handler = new OpenLayers.Handler.Click(
+              this, {
+                  'click': this.trigger
+              }, this.handlerOptions
+          );
+      }, 
+
+      trigger: function(e) {
+          var lonlat = map.getLonLatFromPixel(e.xy);
+          $('#workshop_lat').val(lonlat.lat);
+          $('#workshop_lng').val(lonlat.lon);
+      }
+
+    });
+    var map;
+    function init(){
+        map = new OpenLayers.Map('map');
+
+        var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} );
+
+        map.addLayers([ol_wms]);
+        map.addControl(new OpenLayers.Control.LayerSwitcher());
+        map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+        map.zoomToMaxExtent();
+        
+        var click = new OpenLayers.Control.Click();
+        map.addControl(click);
+        map.zoomIn(8);
+        click.activate();
+
+    }
