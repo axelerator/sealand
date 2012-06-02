@@ -6,3 +6,10 @@ development:
   username: sealand
   password: sealand
 
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: sealand_test
+  pool: 5
+  username: sealand
+  password: sealand
