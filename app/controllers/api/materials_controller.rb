@@ -24,8 +24,8 @@ class Api::MaterialsController < ApplicationController
   private
 
   def check_api_key
-    unless params.include?('api_key') && params['api_key'] == FIXED_API_KEY
-      render :json => '{"message": "Wrong API key"}', :status => :precondition_failed
+    unless request.headers['Authorization'] == "api_key=#{FIXED_API_KEY}"
+      render :json => '{"message": "Unauthorized. Please check you API key."}', :status => :unauthorized
     end
   end
 
