@@ -5,6 +5,7 @@ class PlansController < ApplicationController
   def index
     @plans = Plan.all
     @workshops = Workshop.all
+    @materials = Material.all
 
     respond_to do |format|
       format.html # index.html.erb
