@@ -36,14 +36,16 @@
     map.addLayer(layer);
     map.setCenter(new OpenLayers.LonLat(0, 0), 0);
 
-    var markers = new OpenLayers.Layer.Markers( "Markers" );
-    map.addLayer(markers);
+    var workshopsMarker = new OpenLayers.Layer.Markers( "Workshops" );
+    var materialsMarker = new OpenLayers.Layer.Markers( "Marerials" );
+    map.addLayer(workshopsMarker);
+    map.addLayer(materialsMarker);
 
     var size = new OpenLayers.Size(21,25);
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
     locations.forEach( function(x,i) {
       var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-blue.png',size,offset);
-      markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[0], x[1]) ,icon));
+      workshopsMarker.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[0], x[1]) ,icon));
     });
 
     var size = new OpenLayers.Size(16,20);
@@ -51,10 +53,11 @@
     matlocations.forEach( function(locations,i) {
       locations.forEach( function(location,i) {
         var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-gold.png',size,offset);
-        markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(location[0], location[1]) ,icon));
+        materialsMarker.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(location[0], location[1]) ,icon));
       });
     });
-
+    
     map.addControl(new OpenLayers.Control.LayerSwitcher());
+    map.addControl(new OpenLayers.Control.MousePosition({'prefix':'Longitude: ','separator':'<br/>Latitude: &nbsp; ','numDigits':3}));
     map.zoomToMaxExtent();
   }
