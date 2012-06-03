@@ -27,35 +27,16 @@
 
 #map{"style"=>"height:600px; width: 100%;"}
 
-- locations = @plan.workshops.map{|bar| [bar.lat, bar.lng]}.to_json
+- workshops = @plan.workshops.to_json
 
 :javascript
-   var locations = #{locations};
-   var map, layer;
-        function init(){
-            OpenLayers.ProxyHost="/proxy/?url=";
-            map = new OpenLayers.Map('map');
-            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-                "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+  var workshops = #{workshops};
+  var map;
+  function init(){
+    map = new OpenLayers.Map('map');
 
-            map.addLayer(layer);
-            map.setCenter(new OpenLayers.LonLat(0, 0), 0);
-
-            var markers = new OpenLayers.Layer.Markers( "Markers" );
-            map.addLayer(markers);
-
-            var size = new OpenLayers.Size(21,25);
-            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-            locations.forEach( function(x,i) {
-            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
-              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[1], x[0]) ,icon));
-            });
-
-            //markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(2.0, 5.0),icon));
-            map.addControl(new OpenLayers.Control.LayerSwitcher());
-            //map.zoomToMaxExtent();
-            map.zoomIn(5);
-        }
+    initMap(map,workshops,null);
+  }
 
 .attachments
   %h2 Attachments

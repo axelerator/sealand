@@ -26,28 +26,13 @@
 
 #map{"style"=>"height:600px; width: 100%;"}
 
+- workshop = @workshop.to_json
 
 :javascript
-   var map, layer;
-        function init(){
-            OpenLayers.ProxyHost="/proxy/?url=";
-            map = new OpenLayers.Map('map');
-            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
-                "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-                
-            map.addLayer(layer);
-            map.setCenter(new OpenLayers.LonLat(0, 0), 0);
-
-            var markers = new OpenLayers.Layer.Markers( "Markers" );
-            map.addLayer(markers);
-
-            var size = new OpenLayers.Size(21,25);
-            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
-            var lonlat = new OpenLayers.LonLat(#{@workshop.lng}, #{@workshop.lat});
-            markers.addMarker(new OpenLayers.Marker(lonlat,icon));
-            
-            map.addControl(new OpenLayers.Control.LayerSwitcher());
-            //map.zoomToMaxExtent();
-            map.zoomIn(5);
-        }
+  var workshop = #{workshop};
+  var map, layer;
+  function init(){
+    map = new OpenLayers.Map('map');
+    
+    initMap(map,[workshop],null);
+  }
