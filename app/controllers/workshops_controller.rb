@@ -1,5 +1,8 @@
 
 class WorkshopsController < ApplicationController
+
+  before_filter :sanitize_html, :only => [ :create, :update ]
+
   # GET /workshops
   # GET /workshops.json
   def index
@@ -82,4 +85,11 @@ class WorkshopsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  
+  def sanitize_html
+    params[:workshop][:description] = sanitize_clean( params[:workshop][:description] )
+  end
+
 end

@@ -1,5 +1,8 @@
 
 class PlansController < ApplicationController
+
+  before_filter :sanitize_html, :only => [ :create, :update ]
+
   # GET /plans
   # GET /plans.json
   def index
@@ -82,4 +85,12 @@ class PlansController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  
+  def sanitize_html
+    params[:plan][:description] = sanitize_clean( params[:plan][:description] )
+  end
+
 end
+

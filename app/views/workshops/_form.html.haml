@@ -4,7 +4,13 @@
 
     .form-inputs
       = f.input :name
-      = f.input :description
+      = f.label :description
+      .wysihtml5-toolbar{ "id" => "wysihtml5-toolbar", "style" => "display:none;" }
+        %button{ "data-wysihtml5-command" => "bold" } 
+          %b B
+        %button{ "data-wysihtml5-command" => "italic" } 
+          %i I
+      = f.text_area :description
       = f.input :plan_id, :as => :select, :collection => Plan.all
       = f.input :lat
       = f.input :lng
@@ -62,3 +68,9 @@
         click.activate();
 
     }
+
+    var editor = new wysihtml5.Editor("workshop_description", { // id of textarea element
+                                      toolbar:      "wysihtml5-toolbar", // id of toolbar element
+                                      parserRules:  wysihtml5ParserRules // defined in parser rules set 
+    }); 
+
