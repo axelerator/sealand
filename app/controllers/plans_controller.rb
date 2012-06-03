@@ -3,10 +3,11 @@ class PlansController < ApplicationController
 
   before_filter :sanitize_html, :only => [ :create, :update ]
 
+  before_filter :load_plans, :only => [:index, :new]
+
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.all
     @workshops = Workshop.all
     @materials = Material.all
 
@@ -88,9 +89,13 @@ class PlansController < ApplicationController
   end
 
   private
-  
+
   def sanitize_html
     params[:plan][:description] = sanitize_clean( params[:plan][:description] )
+  end
+
+  def load_plans
+    @plans = Plan.all
   end
 
 end

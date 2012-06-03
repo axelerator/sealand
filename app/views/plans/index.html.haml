@@ -1,22 +1,8 @@
 %p#notice= notice
 - content_for(:sidebar) do
-  - @plans.each do |plan|
-    .teaser
-      .teaserimage.pull-left= image_tag plan.plan_image.public_url, :style => "max-width: 100px; min-width: 100px; min-height:100px;"
-      .teasertext
-        .name 
-          = link_to plan.name, plan
-        .description 
-          != plan.description
-      -#
-        %td
-          - if plan.user
-            = plan.user.email
-        %td= link_to 'Show', plan
-        %td= link_to 'Edit', edit_plan_path(plan)
-        %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
-
-  = link_to 'New Plan', new_plan_path
+  = link_to 'New Workshop', new_workshop_path, :class => 'btn btn-primary'
+  = link_to 'New Plan', new_plan_path, :class => 'btn'
+  = render "shared/list_plans"
 
 #map{"style"=>"height:600px; width: 100%;"}
 
@@ -30,9 +16,9 @@
   function init(){
     OpenLayers.ProxyHost="/proxy/?url=";
     map = new OpenLayers.Map('map');
-    layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+    layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
         "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-        
+
     map.addLayer(layer);
     map.setCenter(new OpenLayers.LonLat(0, 0), 0);
 

@@ -11,9 +11,13 @@
       %button{ "data-wysihtml5-command" => "insertUnorderedList" } &bull;
     = f.text_area :description
     .field
-      = f.label :plan_image 
+      = f.label :plan_image
       = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
-      = f.file_field :plan_image 
+      = f.file_field :plan_image
+
+    .alert.alert-info
+      %h4.alert-heading Notice:
+      You can add documents to your plan later.
 
   .form-actions
     = f.button :submit
@@ -21,5 +25,5 @@
 :javascript
     var editor = new wysihtml5.Editor("plan_description", { // id of textarea element
                                       toolbar:      "wysihtml5-toolbar", // id of toolbar element
-                                      parserRules:  wysihtml5ParserRules // defined in parser rules set 
-    }); 
+                                      parserRules:  wysihtml5ParserRules // defined in parser rules set
+    });
