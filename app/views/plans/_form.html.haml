@@ -7,7 +7,7 @@
     .wysihtml5-toolbar{ "id" => "wysihtml5-toolbar", "style" => "display:none;" }
       %button{ "data-wysihtml5-command" => "bold" }
         %b B
-      %button{ "data-wysihtml5-command" => "italic" }
+      %button{ "data-wysihtml5-command" => "italic" } <i>I</i>
       %button{ "data-wysihtml5-command" => "insertOrderedList" } 1.
       %button{ "data-wysihtml5-command" => "insertUnorderedList" } &bull;
     = f.text_area :description, :class => "span5"
