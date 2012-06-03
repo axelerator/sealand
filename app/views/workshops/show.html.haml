@@ -19,7 +19,7 @@
     %b Plan:
     = link_to @workshop.plan.name, plan_path(@workshop.plan)
 
-#map{"style"=>"height:600px; width: 100%;}
+#map{"style"=>"height:600px; width: 100%;"}
 
 = link_to 'Edit', edit_workshop_path(@workshop)
 \|
@@ -41,9 +41,10 @@
 
             var size = new OpenLayers.Size(21,25);
             var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
-            markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(#{@workshop.lng}, #{@workshop.lat}),icon));
-
+            var icon = new OpenLayers.Icon('http://ww.openlayers.org/dev/img/marker.png',size,offset);
+            var lonlat = new OpenLayers.LonLat(#{@workshop.lng}, #{@workshop.lat});
+            markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+            
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             //map.zoomToMaxExtent();
             map.zoomIn(5);
