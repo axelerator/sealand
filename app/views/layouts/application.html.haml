@@ -42,10 +42,15 @@
                   %li
                     =link_to "Sign Up", signup_path
     .container
-      = yield(:breadcrumb)
+      - unless content_for?(:breadcrumb)
+      - else
+        .row
+          .span12
+            = yield(:breadcrumb)
       - unless content_for?(:sidebar)
-        .span12
-          = yield
+        .row
+          .span12
+            = yield
       - else
         .row
           .span3
