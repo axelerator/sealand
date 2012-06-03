@@ -4,7 +4,9 @@
     = link_to 'New Workshop', new_workshop_path, :class => 'btn btn-primary'
     = link_to 'New Plan', new_plan_path, :class => 'btn'
   = render "shared/list_plans"
-
+  %a{"href" => "http://asapisland.wordpress.com/2012/04/12/sealand-multiversity-of-the-seven-seas/", "target" => "_blank"}
+    %img.logo{"src" => "/assets/SMI_Logo_Top.png"}
+  
 #map{"style"=>"height:600px; width: 100%;"}
 
 - matlocations = @materials.map{|mat| {'id'=>mat.id, 'name'=>mat.name, 'locations'=>mat.locations.map(&:attributes)} }.to_json

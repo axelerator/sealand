@@ -10,12 +10,14 @@
   %body{"onload" => "init();"}
     .navbar.navbar-fixed-top
       .navbar-inner
-        .container-fluid
+        .container
           %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{:href => "/"} iLand Incubator
+          %a.brand{:href => "/"} 
+            /%img{"src" => "/assets/SLM_Logo_36x36.png"}
+            iLand Incubator
           -#
             .btn-group.pull-right
               - if current_user
@@ -39,13 +41,13 @@
                   %li.divider
                   %li
                     =link_to "Sign Up", signup_path
-    .container-fluid
+    .container
       = yield(:breadcrumb)
       - unless content_for?(:sidebar)
         .span12
           = yield
       - else
-        .row-fluid
+        .row
           .span3
             .sidebar-nav
               = yield(:sidebar)

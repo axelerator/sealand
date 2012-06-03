@@ -20,8 +20,6 @@ footer {
   background-color: #EEE;
   border-top: 1px solid silver;
   width:100%;
-  position: fixed;
-  bottom: 0px;
 }
 
 footer p {
@@ -52,4 +50,10 @@ footer p {
 }
 
 .teaserimage {
+}
+
+.sidebar-nav .logo {
+    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-left: 25px;
 }

@@ -1,48 +1,52 @@
 
 %p#notice= notice
-- content_for(:sidebar) do
-  %p
-    = link_to 'edit', edit_plan_path(@plan), class: 'btn'
-  %p
-    %b Name:
-    = @plan.name
-  %p
-    %b Description:
-    != @plan.description
-  %p
-    = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
-- content_for(:breadcrumb) do
-  %ul.breadcrumb
-    %li
-      %a{ "href" => plans_path()} Incubator 
-      %span.divider /
-    %li.active
-      = @plan.name
 
-.workshops
-  %b Workshops:
-  %ul
-    - @plan.workshops.each do |workshop|
-      %li=link_to workshop.name, workshop_path(workshop)
+.row 
+  .span12
+    %h2= @plan.name
+    %br
+.row
+  .sidebar.span4
+    .well
+      %br
+      = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; "
+      %br
+      %br
+      %h4 Description
+      %p
+        != @plan.description
 
-#map{"style"=>"height:600px; width: 100%;"}
+      .pull-right= link_to '[edit]', edit_plan_path(@plan)
 
-- workshops = @plan.workshops.to_json
+  .centerbar.span4
+    %h3 Implementations of this Plan
+    %br
+    #map{"style"=>"height:200px;"}
 
-:javascript
-  var workshops = #{workshops};
-  var map;
-  function init(){
-    map = new OpenLayers.Map('map');
+      - workshops = @plan.workshops.to_json
 
-    initMap(map,workshops,null);
-  }
+      :javascript
+        var workshops = #{workshops};
+        var map;
+        function init(){
+          map = new OpenLayers.Map('map');
 
-.attachments
-  %h2 Attachments
-  %ul
-    = render @plan.attachments
-  %h2 Add an Attachment:
-  .addAttachment.row
-    = render "attachments/form"
+          initMap(map,workshops,null);
+        }
+
+    .workshops
+      %ul
+        - @plan.workshops.each do |workshop|
+          %li=link_to workshop.name, workshop_path(workshop)
+      = link_to 'Add new Workshop', new_workshop_path, :class => 'btn btn-primary'   
+   
+  .rightbar.span4
+    %h3 Attachments
+    %hr
+    
+    %ul
+      = render @plan.attachments
+    
+    .addAttachment
+      = render "attachments/form"
 

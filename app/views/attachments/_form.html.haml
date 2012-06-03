@@ -1,9 +1,9 @@
-=simple_form_for([@plan, @plan.attachments.build]) do |f|
+=simple_form_for([@plan, @plan.attachments.build], {:html => {:class => 'well form-inline'}}) do |f|
+  %h4 Add an Attachment:
+  %br
   = f.error_notification
-  .field.span3
-    = f.input :name 
-  .field.span3
-    = f.label :plan_attachment 
+  .field
+    = f.input_field :name 
     = f.file_field :plan_attachment
-  .actions.span3
+  .actions
     = f.submit :class => 'btn'
