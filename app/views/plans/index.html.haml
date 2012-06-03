@@ -7,7 +7,7 @@
         .name 
           = link_to plan.name, plan
         .description 
-          = plan.description
+          != plan.description
       -#
         %td
           - if plan.user

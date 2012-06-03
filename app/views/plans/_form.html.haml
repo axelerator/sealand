@@ -2,11 +2,27 @@
   = f.error_notification
   .form-inputs
     = f.input :name
-    = f.input :description
+    = f.label :description
+    .wysihtml5-toolbar{ "id" => "wysihtml5-toolbar", "style" => "display:none;" }
+      %button{ "data-wysihtml5-command" => "bold" }
+        %b B
+      %button{ "data-wysihtml5-command" => "italic" }
+      %button{ "data-wysihtml5-command" => "insertOrderedList" } 1.
+      %button{ "data-wysihtml5-command" => "insertUnorderedList" } &bull;
+    = f.text_area :description
     .field
       = f.label :plan_image 
       = f.file_field :plan_image 
 
+  .field
+    = f.label :plan_image 
+    = f.file_field :plan_image 
  
   .form-actions
     = f.button :submit
+
+:javascript
+    var editor = new wysihtml5.Editor("plan_description", { // id of textarea element
+                                      toolbar:      "wysihtml5-toolbar", // id of toolbar element
+                                      parserRules:  wysihtml5ParserRules // defined in parser rules set 
+    }); 

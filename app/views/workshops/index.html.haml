@@ -8,7 +8,7 @@
         .name 
           = link_to workshop.name, workshop_path(workshop)
         .description 
-          = workshop.description
+          != workshop.description
 
       -#%td= link_to 'Show', workshop
       -#%td= link_to 'Edit', edit_workshop_path(workshop)
