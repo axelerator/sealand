@@ -35,4 +35,9 @@
     map = new OpenLayers.Map('map');
     
     initMap(map,[workshop],null);
+    
+    map.setCenter(new OpenLayers.LonLat(workshop.lng, workshop.lat).transform(
+              new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+              map.getProjectionObject() // to Spherical Mercator Projection
+            ), map.getZoom() + 3);
   }
