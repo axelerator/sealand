@@ -1,7 +1,8 @@
 %p#notice= notice
 - content_for(:sidebar) do
-  = link_to 'New Workshop', new_workshop_path, :class => 'btn btn-primary'
-  = link_to 'New Plan', new_plan_path, :class => 'btn'
+  .form-actions
+    = link_to 'New Workshop', new_workshop_path, :class => 'btn btn-primary'
+    = link_to 'New Plan', new_plan_path, :class => 'btn'
   = render "shared/list_plans"
 
 #map{"style"=>"height:600px; width: 100%;"}
