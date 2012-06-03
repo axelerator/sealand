@@ -1,11 +1,12 @@
 = simple_form_for(@plan) do |f|
   = f.error_notification
-
   .form-inputs
     = f.input :name
     = f.input :description
-    = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
-    = f.filer_upload_field :plan_image
+    .field
+      = f.label :plan_image 
+      = f.file_field :plan_image 
 
+ 
   .form-actions
     = f.button :submit
