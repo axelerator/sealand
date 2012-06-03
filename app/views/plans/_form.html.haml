@@ -1,7 +1,8 @@
 = simple_form_for(@plan) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :name
+    = f.label :name
+    = f.text_field :name, :class => "span5"
     = f.label :description
     .wysihtml5-toolbar{ "id" => "wysihtml5-toolbar", "style" => "display:none;" }
       %button{ "data-wysihtml5-command" => "bold" }
@@ -9,7 +10,7 @@
       %button{ "data-wysihtml5-command" => "italic" }
       %button{ "data-wysihtml5-command" => "insertOrderedList" } 1.
       %button{ "data-wysihtml5-command" => "insertUnorderedList" } &bull;
-    = f.text_area :description
+    = f.text_area :description, :class => "span5"
     .field
       = f.label :plan_image
       = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
