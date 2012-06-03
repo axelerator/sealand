@@ -1,0 +1,9 @@
+=simple_form_for([@plan, @plan.attachments.build]) do |f|
+  = f.error_notification
+  .field.span3
+    = f.input :name 
+  .field.span3
+    = f.label :plan_attachment 
+    = f.file_field :plan_attachment
+  .actions.span3
+    = f.submit :class => 'btn'
