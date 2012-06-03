@@ -1,27 +1,51 @@
-%h1 Listing plans
-
-%table
-  %tr
-    %th 
-    %th Name
-    %th Description
-    %th User
-    %th
-    %th
-    %th
-
+%p#notice= notice
+- content_for(:sidebar) do
   - @plans.each do |plan|
-    %tr
-      %td= image_tag plan.plan_image.public_url, :style => "max-width: 30px;min-width: 30px; margin: 10px 0px;"
-      %td= plan.name
-      %td= plan.description
-      %td
-        - if plan.user
-          = plan.user.email
-      %td= link_to 'Show', plan
-      %td= link_to 'Edit', edit_plan_path(plan)
-      %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
+    .teaser
+      .teaserimage.pull-left= image_tag plan.plan_image.public_url, :style => "max-width: 100px; min-width: 100px; min-height:100px;"
+      .teasertext
+        .name 
+          = link_to plan.name, plan
+        .description 
+          = plan.description
+      -#
+        %td
+          - if plan.user
+            = plan.user.email
+        %td= link_to 'Show', plan
+        %td= link_to 'Edit', edit_plan_path(plan)
+        %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
 
-%br
+  = link_to 'New Plan', new_plan_path
 
-= link_to 'New Plan', new_plan_path
+#map{"style"=>"height:600px; width: 100%;"}
+
+- locations = @workshops.map{|bar| [bar.lat, bar.lng]}.to_json
+
+:javascript
+   var locations = #{locations};
+   var map, layer;
+        function init(){
+            OpenLayers.ProxyHost="/proxy/?url=";
+            map = new OpenLayers.Map('map');
+            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+                "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+                
+            map.addLayer(layer);
+            map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+
+            var markers = new OpenLayers.Layer.Markers( "Markers" );
+            map.addLayer(markers);
+
+            var size = new OpenLayers.Size(21,25);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+            locations.forEach( function(x,i) {
+            var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
+              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[1], x[0]) ,icon));
+            });
+
+            //markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(2.0, 5.0),icon));
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            //map.zoomToMaxExtent();
+            map.zoomIn(5);
+        }

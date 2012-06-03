@@ -18,12 +18,14 @@
   %p
     %b Plan:
     = link_to @workshop.plan.name, plan_path(@workshop.plan)
+  = link_to 'Edit', edit_workshop_path(@workshop)
+  \|
+  = link_to 'Back', workshops_path
+  \|
+  = link_to 'Destroy', @workshop, :confirm => 'Are you sure?', :method => :delete
 
 #map{"style"=>"height:600px; width: 100%;"}
 
-= link_to 'Edit', edit_workshop_path(@workshop)
-\|
-= link_to 'Back', workshops_path
 
 :javascript
    var map, layer;

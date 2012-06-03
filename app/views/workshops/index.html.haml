@@ -1,9 +1,15 @@
 %h1 Listing workshops
 
 - content_for(:sidebar) do
-  %ul
-    - @workshops.each do |workshop|
-      %li=link_to workshop.name, workshop_path(workshop)
+  - @workshops.each do |workshop|
+    .teaser
+      -#.teaserimage.pull-left= image_tag workshop.workshop_image.public_url, :style => "max-width: 100px; min-width: 100px; min-height:100px;"
+      .teasertext
+        .name 
+          = link_to workshop.name, workshop_path(workshop)
+        .description 
+          = workshop.description
+
       -#%td= link_to 'Show', workshop
       -#%td= link_to 'Edit', edit_workshop_path(workshop)
       -#%td= link_to 'Destroy', workshop, :confirm => 'Are you sure?', :method => :delete

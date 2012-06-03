@@ -18,12 +18,15 @@
     %ul
       - @plan.workshops.each do |workshop|
         %li=link_to workshop.name, workshop_path(workshop)
+  = link_to 'Edit', edit_plan_path(@plan)
+  \|
+  = link_to 'Back', plans_path
+  \|
+  = link_to 'Destroy', @plan, :confirm => 'Are you sure?', :method => :delete
+
 
 #map{"style"=>"height:600px; width: 100%;"}
 
-= link_to 'Edit', edit_plan_path(@plan)
-\|
-= link_to 'Back', plans_path
 
 - locations = @plan.workshops.map{|bar| [bar.lat, bar.lng]}.to_json
 
