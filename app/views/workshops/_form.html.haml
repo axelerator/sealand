@@ -10,6 +10,8 @@
           %b B
         %button{ "data-wysihtml5-command" => "italic" } 
           %i I
+        %button{ "data-wysihtml5-command" => "insertOrderedList" } 1.
+        %button{ "data-wysihtml5-command" => "insertUnorderedList" } &bull;
       = f.text_area :description
       = f.input :plan_id, :as => :select, :collection => Plan.all
       = f.input :lat
