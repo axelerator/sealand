@@ -7,12 +7,12 @@
 
 #map{"style"=>"height:600px; width: 100%;"}
 
-- locations = @workshops.map{|bar| [bar.lng, bar.lat]}.to_json
-- matlocations = @materials.map{|mat| mat.locations.map{|loc| [loc.longitude, loc.latitude]}}.to_json
+- matlocations = @materials.map{|mat| {'id'=>mat.id, 'name'=>mat.name, 'locations'=>mat.locations.map(&:attributes)} }.to_json
+- workshops = @workshops.to_json
 
 :javascript
-  var locations = #{locations};
-  var matlocations = #{matlocations};
+  var materials = #{matlocations};
+  var workshops = #{workshops};
   var map, layerMapQuest, layerAerial;
   function init(){
     OpenLayers.ProxyHost="/proxy/?url=";
@@ -43,17 +43,27 @@
 
     var size = new OpenLayers.Size(21,25);
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-    locations.forEach( function(x,i) {
+    workshops.forEach( function(workshop,i) {
       var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-blue.png',size,offset);
-      workshopsMarker.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x[0], x[1]) ,icon));
+      var lonLat = new OpenLayers.LonLat(workshop.lng, workshop.lat);
+      var marker = new OpenLayers.Marker( lonLat, icon );
+      marker.events.register("mousedown", marker, function() {
+        map.addPopup(new OpenLayers.Popup.Anchored("wor"+workshop.id,lonLat,new OpenLayers.Size(90,50),workshop.name,icon,true,function() { this.destroy(); }));
+      });
+      workshopsMarker.addMarker(marker);
     });
 
     var size = new OpenLayers.Size(16,20);
     var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-    matlocations.forEach( function(locations,i) {
-      locations.forEach( function(location,i) {
+    materials.forEach( function(material,i) {
+      material.locations.forEach( function(location,i) {
         var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-gold.png',size,offset);
-        materialsMarker.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(location[0], location[1]) ,icon));
+        var lonLat = new OpenLayers.LonLat(location.longitude, location.latitude);
+        var marker = new OpenLayers.Marker( lonLat, icon );
+        marker.events.register("mousedown", marker, function() {
+          map.addPopup(new OpenLayers.Popup.Anchored("mat"+material.id,lonLat,new OpenLayers.Size(90,50),material.name,icon,true,function() { this.destroy(); }));
+        });
+        materialsMarker.addMarker(marker);
       });
     });
 
