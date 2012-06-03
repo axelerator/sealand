@@ -5,7 +5,7 @@ Sealand::Application.routes.draw do
   # REST API
   post 'api/material'     => 'api/materials#create', :as => 'api_create_material'
   get  'api/material'     => 'api/materials#index',  :as => 'api_materials'
-  get  'api/material/:id'     => 'api/materials#show',  :as => 'api_material'
+  get  'api/material/:id' => 'api/materials#show',   :as => 'api_material'
   # --------
 
   resources :materials

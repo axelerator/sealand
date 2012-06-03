@@ -76,6 +76,20 @@ class Api::MaterialsController < ApplicationController
     end
   end
 
+  # JSON response:
+  #   {
+  #      "id": 23,
+  #      "name": "Name of the material"
+  #      "description": "Description of the material",
+  #   }
+  def show
+    if material = Material.find_by_id(param_as_int(params[:id]))
+      render :json => material.attributes.slice('id', 'name', 'description')
+    else
+      render :status => :not_found, :json => { "message" => "Material not found" }
+    end
+  end
+
   private
 
   def param_as_int(param_or_nil)
