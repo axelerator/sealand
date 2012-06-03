@@ -15,10 +15,28 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+function workshopPopup(workshop, lonLat, icon) {
+  var id = "wor"+workshop.id
+    , closeBox = true
+    , closeBoxCallback = function() { this.destroy(); }
+    , contentSize = new OpenLayers.Size(300,200)
+    , contentHTML = "<a href=\""+workshop.workshop_url+"\"><h4>"+workshop.workshop.name+"</h4><img width=\"250\" src=\""+workshop.plan_image+"\" /></a>";
+
+  return new OpenLayers.Popup.Anchored(
+      id,
+      lonLat,
+      contentSize,
+      contentHTML,
+      icon,
+      closeBox,
+      closeBoxCallback
+  );
+}
+
 initMap = function(map, workshops, materials) {
     OpenLayers.ProxyHost="/proxy/?url=";
     var layerMapQuest, layerAerial;
-    
+
     layerMapQuest = new OpenLayers.Layer.OSM("MapQuest Open", [
                      "http://otile1.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg",
                      "http://otile2.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg",
@@ -47,21 +65,20 @@ initMap = function(map, workshops, materials) {
       var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
       workshops.forEach( function(workshop,i) {
         var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-blue.png',size,offset);
-        var lonLat = new OpenLayers.LonLat(workshop.lng, workshop.lat).transform(
+        var lonLat = new OpenLayers.LonLat(workshop.workshop.lng, workshop.workshop.lat).transform(
               new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
               map.getProjectionObject() // to Spherical Mercator Projection
             );
         var marker = new OpenLayers.Marker( lonLat, icon );
         marker.events.register("mousedown", marker, function() {
-          map.addPopup(new OpenLayers.Popup.Anchored("wor"+workshop.id,lonLat,new OpenLayers.Size(90,50),workshop.name,icon,true,function() { this.destroy(); }));
+          map.addPopup(workshopPopup(workshop, lonLat, marker.icon));
         });
         workshopsMarker.addMarker(marker);
       });
-      
     }
 
     if (materials != null ) {
-    
+
       var size = new OpenLayers.Size(16,20);
       var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
       materials.forEach( function(material,i) {
@@ -78,7 +95,7 @@ initMap = function(map, workshops, materials) {
           materialsMarker.addMarker(marker);
         });
       });
-      
+
     }
 
     map.addControl(new OpenLayers.Control.LayerSwitcher());

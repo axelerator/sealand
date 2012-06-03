@@ -10,7 +10,7 @@
 #map{"style"=>"height:600px; width: 100%;"}
 
 - matlocations = @materials.map{|mat| {'id'=>mat.id, 'name'=>mat.name, 'locations'=>mat.locations.map(&:attributes)} }.to_json
-- workshops = @workshops.to_json
+- workshops = @workshops.map { |ws| { 'workshop_url' => workshop_path(ws.id), 'workshop' => ws.attributes, 'plan_image' => ws.plan.plan_image.public_url }  }.to_json
 
 :javascript
   var materials = #{matlocations};
@@ -18,6 +18,6 @@
   var map;
   function init(){
     map = new OpenLayers.Map('map');
-    
+
     initMap(map,workshops,materials);
   }
