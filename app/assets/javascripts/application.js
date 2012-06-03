@@ -20,7 +20,7 @@ function workshopPopup(workshop, lonLat, icon) {
     , closeBox = true
     , closeBoxCallback = function() { this.destroy(); }
     , contentSize = new OpenLayers.Size(300,200)
-    , contentHTML = "<a href=\""+workshop.workshop_url+"\"><h4>"+workshop.workshop.name+"</h4><img width=\"250\" src=\""+workshop.plan_image+"\" /></a>";
+    , contentHTML = "<a href=\""+workshop.workshop_url+"\"><h4>"+workshop.name+"</h4><img width=\"250\" src=\""+workshop.plan_image+"\" /></a>";
 
   return new OpenLayers.Popup.Anchored(
       id,
@@ -65,7 +65,7 @@ initMap = function(map, workshops, materials) {
       var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
       workshops.forEach( function(workshop,i) {
         var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker-blue.png',size,offset);
-        var lonLat = new OpenLayers.LonLat(workshop.workshop.lng, workshop.workshop.lat).transform(
+        var lonLat = new OpenLayers.LonLat(workshop.lng, workshop.lat).transform(
               new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
               map.getProjectionObject() // to Spherical Mercator Projection
             );
