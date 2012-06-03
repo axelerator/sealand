@@ -70,7 +70,7 @@ Sealand::Application.routes.draw do
   resources :users
   resources :sessions
   get "secret" => "home#secret", :as => "secret"
-  root :to => 'sessions#new'
+  root :to => 'plans#index'
   # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"

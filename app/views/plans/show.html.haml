@@ -6,9 +6,10 @@
   %p
     %b Description:
     = @plan.description
-  %p
-    %b User:
-    = @plan.user_id
+  -# 
+    %p
+      %b User:
+      = @plan.user_id
   %p
     = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
 
@@ -18,7 +19,7 @@
       - @plan.workshops.each do |workshop|
         %li=link_to workshop.name, workshop_path(workshop)
 
-#map{"style"=>"height:250px; width: 300px; border: 1px solid red"}
+#map{"style"=>"height:600px; width: 100%;"}
 
 = link_to 'Edit', edit_plan_path(@plan)
 \|
@@ -37,9 +38,6 @@
                 
             map.addLayer(layer);
             map.setCenter(new OpenLayers.LonLat(0, 0), 0);
-
-            var newl = new OpenLayers.Layer.Text( "text", { location:"./textfile.txt"} );
-            map.addLayer(newl);
 
             var markers = new OpenLayers.Layer.Markers( "Markers" );
             map.addLayer(markers);
