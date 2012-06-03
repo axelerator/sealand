@@ -39,8 +39,8 @@
                   %li.divider
                   %li
                     =link_to "Sign Up", signup_path
-
     .container-fluid
+      = yield(:breadcrumb)
       - unless content_for?(:sidebar)
         .span12
           = yield

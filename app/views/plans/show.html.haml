@@ -1,18 +1,23 @@
+
 %p#notice= notice
 - content_for(:sidebar) do
-  = link_to 'Back', plans_path(), :class => 'btn'
-  = render "shared/list_plans"
-
-%p
-  = link_to 'edit', edit_plan_path(@plan)
-%p
-  %b Name:
-  = @plan.name
-%p
-  %b Description:
-  != @plan.description
-%p
-  = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
+  %p
+    = link_to 'edit', edit_plan_path(@plan), class: 'btn'
+  %p
+    %b Name:
+    = @plan.name
+  %p
+    %b Description:
+    != @plan.description
+  %p
+    = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
+- content_for(:breadcrumb) do
+  %ul.breadcrumb
+    %li
+      %a{ "href" => plans_path()} Incubator 
+      %span.divider /
+    %li.active
+      = @plan.name
 
 .workshops
   %b Workshops:
