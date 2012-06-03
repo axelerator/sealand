@@ -11,12 +11,14 @@
  *= require_self
  *= require_tree .
  */
+
+container-fluid {
+  min-height: 900px;
+}
  
 footer {
-  bottom: 0px;
   background-color: #EEE;
   border-top: 1px solid silver;
-  position: absolute;
   width:100%;
 }
 
