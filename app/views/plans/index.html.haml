@@ -13,14 +13,27 @@
 :javascript
   var locations = #{locations};
   var matlocations = #{matlocations};
-  var map, layer;
+  var map, layerMapQuest, layerAerial;
   function init(){
     OpenLayers.ProxyHost="/proxy/?url=";
     map = new OpenLayers.Map('map');
-    layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-        "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
 
-    map.addLayer(layer);
+    layerMapQuest = new OpenLayers.Layer.OSM("MapQuest Open", [
+                     "http://otile1.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg",
+                     "http://otile2.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg",
+                     "http://otile3.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg",
+                     "http://otile4.mqcdn.com/tiles/1.0.0/osm/${z}/${x}/${y}.jpg"
+                    ]);
+
+    layerAerial = new OpenLayers.Layer.OSM("Aerial", [
+                     "http://oatile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+                     "http://oatile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+                     "http://oatile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+                     "http://oatile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg"
+                  ]);
+
+    map.addLayer(layerMapQuest);
+    map.addLayer(layerAerial);
     map.setCenter(new OpenLayers.LonLat(0, 0), 0);
 
     var workshopsMarker = new OpenLayers.Layer.Markers( "Workshops" );
@@ -43,7 +56,7 @@
         materialsMarker.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(location[0], location[1]) ,icon));
       });
     });
-    
+
     map.addControl(new OpenLayers.Control.LayerSwitcher());
     map.addControl(new OpenLayers.Control.MousePosition({'prefix':'Longitude: ','separator':'<br/>Latitude: &nbsp; ','numDigits':3}));
     map.zoomToMaxExtent();
