@@ -1,0 +1,8 @@
+- @plans.each do |plan|
+  .teaser
+    .teaserimage.pull-left= image_tag plan.plan_image.public_url, :style => "max-width: 100px; min-width: 100px; min-height:100px;"
+    .teasertext
+      .name
+        = link_to plan.name, plan
+      .description
+        != plan.description

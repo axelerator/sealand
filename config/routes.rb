@@ -7,12 +7,15 @@ Sealand::Application.routes.draw do
   get  'api/material'     => 'api/materials#index',  :as => 'api_materials'
   get  'api/material/:id' => 'api/materials#show',   :as => 'api_material'
   # --------
+  resources :attachments
 
   resources :materials
 
   resources :workshops
 
-  resources :plans
+  resources :plans do
+    resources :attachments
+  end
 
   get "sessions/new"
 

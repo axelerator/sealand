@@ -1,0 +1,4 @@
+%li
+  = link_to attachment.name, attachment.plan_attachment.public_url
+    
+  = link_to '<i class="icon-trash icon-white"></i>'.html_safe, [attachment.plan, attachment], :confirm => 'Are you sure?', :method => :delete

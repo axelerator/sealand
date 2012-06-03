@@ -1,3 +1,7 @@
+- content_for(:sidebar) do
+  = link_to 'Back', :back, :class => 'btn'
+  = render "shared/list_plans"
+
 %h1 New plan
 
 = render 'form'
