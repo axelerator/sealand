@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    def new
+  def new
     @user = User.new
 
     respond_to do |format|
