@@ -1,26 +1,26 @@
 %p#notice= notice
 - content_for(:sidebar) do
-  %p
-    %b Name:
-    = @plan.name
-  %p
-    %b Description:
-    != @plan.description
-  -# 
-    %p
-      %b User:
-      = @plan.user_id
-  %p
-    = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
+  = link_to 'Back', plans_path(), :class => 'btn'
+  = render "shared/list_plans"
 
-  .workshops
-    %b Workshops:
-    %ul
-      - @plan.workshops.each do |workshop|
-        %li=link_to workshop.name, workshop_path(workshop)
+%p
+  = link_to 'edit', edit_plan_path(@plan)
+%p
+  %b Name:
+  = @plan.name
+%p
+  %b Description:
+  != @plan.description
+%p
+  = image_tag @plan.plan_image.public_url, :style => "max-width: 284px; margin: 10px 0px;"
+
+.workshops
+  %b Workshops:
+  %ul
+    - @plan.workshops.each do |workshop|
+      %li=link_to workshop.name, workshop_path(workshop)
 
 #map{"style"=>"height:600px; width: 100%;"}
-
 
 - locations = @plan.workshops.map{|bar| [bar.lat, bar.lng]}.to_json
 
@@ -30,9 +30,9 @@
         function init(){
             OpenLayers.ProxyHost="/proxy/?url=";
             map = new OpenLayers.Map('map');
-            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", 
+            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
                 "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-                
+
             map.addLayer(layer);
             map.setCenter(new OpenLayers.LonLat(0, 0), 0);
 
@@ -59,4 +59,4 @@
   %h2 Add an Attachment:
   .addAttachment.row
     = render "attachments/form"
-   
+

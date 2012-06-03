@@ -3,7 +3,7 @@ class PlansController < ApplicationController
 
   before_filter :sanitize_html, :only => [ :create, :update ]
 
-  before_filter :load_plans, :only => [:index, :new]
+  before_filter :load_plans, :only => [:index, :new, :show, :edit]
 
   # GET /plans
   # GET /plans.json
