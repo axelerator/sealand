@@ -10,6 +10,22 @@ class Api::MaterialsController < ApplicationController
 
   before_filter :check_api_key
 
+  # JSON response:
+  # {
+  #   "total": 2,
+  #   "materials": [
+  #     {
+  #        "id": 23,
+  #        "name": "Name of the material"
+  #        "description": "Description of the material",
+  #     },
+  #     {
+  #        "id": 42,
+  #        "name": "Name of another material"
+  #        "description": "Description of that material",
+  #     }
+  #   ]
+  # }
   def index
     limit  = [param_as_int(params['limit']) || DEFAULT_LIMIT, MAX_LIMIT].min
     offset = param_as_int params['offset'] || 0
@@ -26,14 +42,33 @@ class Api::MaterialsController < ApplicationController
     }
   end
 
+  # Expected JSON input:
+  #   {
+  #     "material": {
+  #       "name": "Material name",
+  #       "description": "Description of the material"
+  #     },
+  #     "locations": [
+  #       {
+  #         "latitude": 13.1512,
+  #         "longitude": 2.5125,
+  #         "accuracy": 0.24,
+  #         "description": "Description of location"
+  #       }
+  #     ]
+  #   }
+  # Response:
+  # -  see Location header (i.e. /api/material/23)
   def create
-    material = Material.new
-    material.assign_attributes(params['material'])
-    material.assign_attributes(params['location'])
+    material = Material.new(params['material'])
+
+    params['locations'].each do |location|
+      material.locations.build(location)
+    end
 
     if material.valid?
       material.save!
-      head :created
+      head :created, :location => api_material_path(material.id)
     else
       render :status => :unprocessable_entity, :json => {
           "message" => "Please check your supplied fields"

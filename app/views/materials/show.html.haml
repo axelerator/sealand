@@ -3,6 +3,15 @@
 %p
   %b Name:
   = @material.name
+%p
+  %b Description:
+  = @material.description
+%p
+  %b Locations:
+  %ul
+    - @material.locations.each do |location|
+      %li
+        = "#{location.description} (Lat: #{location.latitude}, Long: #{location.longitude})"
 
 = link_to 'Edit', edit_material_path(@material)
 \|
