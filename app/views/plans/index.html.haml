@@ -60,4 +60,6 @@
     map.addControl(new OpenLayers.Control.LayerSwitcher());
     map.addControl(new OpenLayers.Control.MousePosition({'prefix':'Longitude: ','separator':'<br/>Latitude: &nbsp; ','numDigits':3}));
     map.zoomToMaxExtent();
+    map.zoomIn( map.getZoom() + 1 );
+    //map.zoomIn(5);
   }

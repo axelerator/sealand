@@ -40,5 +40,7 @@
     });
 
     map.addControl(new OpenLayers.Control.LayerSwitcher());
-    map.zoomIn(10);
+
+    map.zoomToMaxExtent();
+    map.zoomIn( map.getZoom() + 1 );
   }
